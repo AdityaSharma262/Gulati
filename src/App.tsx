@@ -3,21 +3,23 @@ import { X, Phone, Mail, MapPin, Star, Users, Award, Clock, ChevronRight } from 
 
 // Background images for different sections
 const heroImages = [
+  'https://images.pexels.com/photos/29351977/pexels-photo-29351977.jpeg',
   'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-  'https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-  'https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-  'https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
+  'https://images.pexels.com/photos/30496016/pexels-photo-30496016.jpeg',
+  'https://i.pinimg.com/736x/89/42/5c/89425ca67cc0e546d1978e0912053a19.jpg',
+  'https://images.pexels.com/photos/3997390/pexels-photo-3997390.jpeg',
+  'https://images.pexels.com/photos/29368865/pexels-photo-29368865.jpeg',
+  'https://images.pexels.com/photos/14666123/pexels-photo-14666123.jpeg',
+  'https://images.pexels.com/photos/5069494/pexels-photo-5069494.jpeg'
 ];
 
 const aboutImages = [
-  'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
   'https://images.pexels.com/photos/3997982/pexels-photo-3997982.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
   'https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
 ];
 
 const courseImages = [
-  'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-  'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
   'https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
 ];
 
@@ -68,11 +70,13 @@ const WhatsAppPopup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
   );
 };
 
-// Course Card Component
-const CourseCard = ({ title , description, highlights }: {
+// Course Card Component - UPDATED WITH NEW DESIGN
+const CourseCard = ({ title, description, highlights, frontImage, backImage }: {
   title: string;
   description: string;
   highlights: string[];
+  frontImage: string;
+  backImage: string;
 }) => (
   <div className="group perspective-1000 h-64">
     <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
@@ -80,19 +84,22 @@ const CourseCard = ({ title , description, highlights }: {
       <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl shadow-lg flex items-center justify-center p-6 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=800)' }}
+          style={{ backgroundImage: `url(${frontImage})` }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/90 to-teal-700/90"></div>
-        <h3 className="text-xl md:text-2xl font-bold text-white text-center leading-tight">{title}</h3>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/85 to-slate-900/90"></div>
+        <div className="relative z-10 text-center">
+          <h3 className="text-xl md:text-2xl font-bold text-white leading-tight mb-2">{title}</h3>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-rose-400 to-amber-400 mx-auto"></div>
+        </div>
       </div>
       
       {/* Back of card */}
       <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl shadow-lg p-6 flex flex-col justify-between overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=800)' }}
+          style={{ backgroundImage: `url(${backImage})` }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/90 to-orange-700/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/90 to-purple-900/95"></div>
         <div>
           <h3 className="relative z-10 text-lg font-bold text-white mb-3">{title}</h3>
           <p className="relative z-10 text-white/90 text-sm mb-4 leading-relaxed">{description}</p>
@@ -103,7 +110,7 @@ const CourseCard = ({ title , description, highlights }: {
           <ul className="space-y-1">
             {highlights.slice(0, 3).map((highlight, index) => (
               <li key={index} className="relative z-10 flex items-start text-xs text-white/90">
-                <ChevronRight size={12} className="text-white mr-1 mt-0.5 flex-shrink-0" />
+                <ChevronRight size={12} className="text-rose-300 mr-1 mt-0.5 flex-shrink-0" />
                 <span>{highlight}</span>
               </li>
             ))}
@@ -132,6 +139,8 @@ const FeatureCard = ({ icon, title, description }: {
 function App() {
   const [showWhatsAppPopup, setShowWhatsAppPopup] = useState(false);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [nextHeroImage, setNextHeroImage] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentAboutImage, setCurrentAboutImage] = useState(0);
   const [currentCourseImage, setCurrentCourseImage] = useState(0);
 
@@ -147,7 +156,12 @@ function App() {
   useEffect(() => {
     // Change hero background every 6 seconds
     const heroTimer = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+        setNextHeroImage((prev) => (prev + 1) % heroImages.length);
+        setIsTransitioning(false);
+      }, 1000); // Half of transition duration
     }, 6000);
 
     // Change about background every 8 seconds
@@ -167,6 +181,7 @@ function App() {
     };
   }, []);
 
+  // UPDATED COURSES WITH NEW IMAGES AND STRUCTURE
   const courses = [
     {
       title: "Advanced Skincare Techniques",
@@ -176,7 +191,9 @@ function App() {
         "Skin analysis and consultation techniques",
         "Chemical peels and microdermabrasion",
         "Anti-aging and corrective treatments"
-      ]
+      ],
+      frontImage: "https://images.pexels.com/photos/3985360/pexels-photo-3985360.jpeg?auto=compress&cs=tinysrgb&w=800",
+      backImage: "https://images.pexels.com/photos/3985363/pexels-photo-3985363.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       title: "Professional Makeup Artistry",
@@ -186,7 +203,9 @@ function App() {
         "Bridal and special occasion makeup",
         "Editorial and fashion makeup techniques",
         "Airbrush and HD makeup application"
-      ]
+      ],
+      frontImage: "https://images.pexels.com/photos/1926620/pexels-photo-1926620.jpeg",
+      backImage: "https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       title: "Hair Styling & Treatment Mastery",
@@ -196,7 +215,9 @@ function App() {
         "Hair coloring and chemical treatments",
         "Keratin treatments and hair restoration",
         "Bridal and event hairstyling"
-      ]
+      ],
+      frontImage: "https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg?auto=compress&cs=tinysrgb&w=800",
+      backImage: "https://images.pexels.com/photos/3065171/pexels-photo-3065171.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       title: "Nail Art & Extension Certification",
@@ -206,7 +227,9 @@ function App() {
         "Advanced nail art and design",
         "Nail health and hygiene protocols",
         "3D nail art and embellishments"
-      ]
+      ],
+      frontImage: "https://images.pexels.com/photos/3997390/pexels-photo-3997390.jpeg",
+      backImage: "https://images.pexels.com/photos/1319461/pexels-photo-1319461.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       title: "Brow Shaping & Extension Techniques",
@@ -216,7 +239,9 @@ function App() {
         "Brow mapping and shaping",
         "Henna brow treatments",
         "Brow lamination and tinting"
-      ]
+      ],
+      frontImage: "https://images.pexels.com/photos/5177995/pexels-photo-5177995.jpeg",
+      backImage: "https://images.pexels.com/photos/6663335/pexels-photo-6663335.jpeg?auto=compress&cs=tinysrgb&w=800"
     },
     {
       title: "Permanent Makeup & Microblading",
@@ -226,7 +251,9 @@ function App() {
         "Permanent eyeliner techniques",
         "Lip blush and full lip tattooing",
         "Color theory and skin healing"
-      ]
+      ],
+      frontImage: "https://images.pexels.com/photos/5128259/pexels-photo-5128259.jpeg",
+      backImage: "https://images.pexels.com/photos/5128259/pexels-photo-5128259.jpeg"
     }
   ];
 
@@ -294,15 +321,25 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center transition-all duration-2000 ease-in-out transform"
+      <section className="relative overflow-hidden min-h-screen">
+        {/* Current Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImages[currentHeroImage]})` }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-400/80 via-purple-500/70 to-teal-500/80"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+        {/* Next Background Image with Fade Transition */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ease-in-out ${
+            isTransitioning ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ backgroundImage: `url(${heroImages[nextHeroImage]})` }}
+        ></div>
+        
+        <div className="absolute inset-0 bg-gradient-to-br from-rose-400/50 via-purple-500/40 to-teal-500/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32 min-h-screen flex flex-col justify-center">
           <div className="text-center text-white">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">
@@ -316,8 +353,36 @@ function App() {
               Premier beauty education institute offering comprehensive courses in makeup artistry, skincare, and beauty business management.
             </p>
             
+            {/* Additional Hero Content */}
+            <div className="grid md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">5000+</div>
+                <div className="text-sm opacity-90">Students Trained</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">98%</div>
+                <div className="text-sm opacity-90">Success Rate</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">15+</div>
+                <div className="text-sm opacity-90">Expert Instructors</div>
+              </div>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-gray-800 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg">
+              <button 
+                onClick={() => {
+                  const coursesSection = document.getElementById('courses');
+                  if (coursesSection) {
+                    coursesSection.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'start',
+                      inline: 'nearest'
+                    });
+                  }
+                }}
+                className="bg-white text-gray-800 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
                 Explore Courses
               </button>
             </div>
@@ -330,7 +395,7 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section id="about" className="py-20 relative overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center transition-all duration-2000 ease-in-out transform"
           style={{ backgroundImage: `url(${aboutImages[currentAboutImage]})` }}
@@ -356,8 +421,8 @@ function App() {
         </div>
       </section>
 
-      {/* Courses Section */}
-      <section className="py-20 relative overflow-hidden">
+      {/* Courses Section - UPDATED */}
+      <section id="courses" className="py-20 relative overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center transition-all duration-2000 ease-in-out transform"
           style={{ backgroundImage: `url(${courseImages[currentCourseImage]})` }}
@@ -394,52 +459,62 @@ function App() {
             }
           `}</style>
             {courses.map((course, index) => (
-              <CourseCard key={index} title={course.title} description={course.description} highlights={course.highlights} />
+              <CourseCard 
+                key={index} 
+                title={course.title} 
+                description={course.description} 
+                highlights={course.highlights}
+                frontImage={course.frontImage}
+                backImage={course.backImage}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Upcoming Courses Section */}
-      <section className="py-20 bg-white">
+      {/* Upcoming Courses Section - UPDATED WITH LUXURY DESIGN */}
+      <section id="upcoming" className="py-20 bg-gradient-to-br from-slate-900 via-gray-900 to-black">
         <div className="max-w-7xl mx-auto px-4">
           <div className="relative z-10 text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              <span className="bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-rose-400 via-amber-400 to-rose-500 bg-clip-text text-transparent">
                 Upcoming Courses
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Exciting new programs launching soon to expand your expertise in advanced beauty technologies.
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {upcomingCourses.map((course, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 relative overflow-hidden">
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-teal-400 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+              <div key={index} className="bg-gradient-to-br from-slate-800/80 via-gray-800/70 to-slate-900/90 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 border border-slate-700/50 relative overflow-hidden backdrop-blur-sm">
+                {/* Luxury accent elements */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-400 via-amber-400 to-rose-500"></div>
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-rose-400/10 to-amber-400/10 rounded-full blur-2xl"></div>
+                <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-xl"></div>
+                
+                <div className="absolute top-6 right-6 bg-gradient-to-r from-rose-500/90 to-amber-500/90 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm border border-white/20">
                   Coming Soon
                 </div>
-                <div className="mb-4">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{course.title}</h3>
-                  <p className="text-gray-600 mb-4">{course.description}</p>
+                
+                <div className="relative z-10 mb-6 mt-4">
+                  <h3 className="text-2xl font-bold text-white mb-3 leading-tight">{course.title}</h3>
+                  <div className="w-12 h-0.5 bg-gradient-to-r from-rose-400 to-amber-400 mb-4"></div>
+                  <p className="text-gray-300 leading-relaxed">{course.description}</p>
                 </div>
                 
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-700 mb-2">What you'll learn:</h4>
-                  <ul className="space-y-1">
+                <div className="relative z-10">
+                  <h4 className="font-semibold text-rose-300 mb-4 text-lg">What you'll master:</h4>
+                  <ul className="space-y-3">
                     {course.highlights.map((highlight, highlightIndex) => (
-                      <li key={highlightIndex} className="flex items-start text-sm text-gray-600">
-                        <ChevronRight size={16} className="text-teal-500 mr-1 mt-0.5 flex-shrink-0" />
-                        <span>{highlight}</span>
+                      <li key={highlightIndex} className="flex items-start text-gray-300">
+                        <div className="w-2 h-2 bg-gradient-to-r from-rose-400 to-amber-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                        <span className="leading-relaxed">{highlight}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                
-                <button className="w-full bg-gradient-to-r from-teal-400 to-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-teal-500 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
-                  Get Notified
-                </button>
               </div>
             ))}
           </div>
@@ -463,7 +538,7 @@ function App() {
               <div className="text-lg opacity-90">Expert Instructors</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold mb-2">12</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">+20</div>
               <div className="text-lg opacity-90">Years Experience</div>
             </div>
           </div>
@@ -471,7 +546,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
+      <footer id="contact" className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
@@ -492,10 +567,10 @@ function App() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Courses</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Admissions</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Gallery</a></li>
+               <li><a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} className="hover:text-white transition-colors cursor-pointer">About Us</a></li>
+               <li><a href="#courses" onClick={(e) => { e.preventDefault(); document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} className="hover:text-white transition-colors cursor-pointer">Courses</a></li>
+               <li><a href="#upcoming" onClick={(e) => { e.preventDefault(); document.getElementById('upcoming')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} className="hover:text-white transition-colors cursor-pointer">Upcoming Courses</a></li>
+               <li><a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} className="hover:text-white transition-colors cursor-pointer">Contact</a></li>
               </ul>
             </div>
             
@@ -525,6 +600,34 @@ function App() {
         isOpen={showWhatsAppPopup} 
         onClose={() => setShowWhatsAppPopup(false)} 
       />
+
+      {/* Permanent WhatsApp Floating Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <a
+          href="https://wa.me/1234567890?text=Hi! I'm interested in learning more about MT Institute's beauty courses."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-2xl hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-110 animate-pulse hover:animate-none"
+        >
+          {/* WhatsApp Icon */}
+          <svg
+            className="w-8 h-8 text-white transition-transform duration-300 group-hover:scale-110"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+          </svg>
+          
+          {/* Ripple effect */}
+          <div className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-20"></div>
+          
+          {/* Tooltip */}
+          <div className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-3 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-lg">
+            Chat with us on WhatsApp
+            <div className="absolute left-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-l-gray-800"></div>
+          </div>
+        </a>
+      </div>
     </div>
   );
 }
